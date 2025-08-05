@@ -1,7 +1,22 @@
-body{
-    background: linear-gradient(to bottom right, #fcae1e, #f75aa4, #7d5fff);
-    font-family: sans-serif;
-    height: 100vh;
+body {
+  height: 100vh;
+  margin: 0;
+  font-family: sans-serif;
+  background: linear-gradient(45deg, #fcae1e, #f75aa4, #7d5fff);
+  background-size: 400% 400%;
+  animation: animatedBackground 10s ease infinite;
+}
+
+@keyframes animatedBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .page {
