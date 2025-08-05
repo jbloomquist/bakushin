@@ -3,9 +3,9 @@ body {
   margin: 0;
   color:#FFFFFF;
   font-family: sans-serif;
-  background: linear-gradient(90deg, #fcae1e, #f75aa4, #7d5fff);
+  background: linear-gradient(66deg, #fcae1e, #f75aa4, #7d5fff);
   background-size: 250% 250%;
-  animation: animatedBackground 5s ease infinite;
+  animation: animatedBackground 15s ease infinite;
 }
 
 @keyframes animatedBackground {
