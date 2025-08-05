@@ -1,4 +1,3 @@
-<script>
   const { useState } = React;
 
   function TrainingChartFiller() {
@@ -116,4 +115,3 @@ Wit: +${w1} Wit, +${w2} Speed, Support: ${w3 || "None"}${tag(4)}`;
     React.createElement(TrainingChartFiller),
     document.getElementById('root')
   );
-</script>
