@@ -51,6 +51,7 @@ body {
   }
 
   .form-input {
+    background-color:#F0F0F00F;
     padding: 0.5rem;
     font-size: 1rem;
   }
