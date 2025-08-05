@@ -1,126 +1,119 @@
-import { useState } from "react";
+<script>
+  const { useState } = React;
 
-export default function TrainingChartFiller() {
-  const [inputs, setInputs] = useState(Array(17).fill(""));
-  const [weights, setWeights] = useState(Array(5).fill(false));
-  const [output, setOutput] = useState("");
-  const [copied, setCopied] = useState(false);
-  const [stats, setStats] = useState({ speed: '', stamina: '', power: '', guts: '', wit: '' });
+  function TrainingChartFiller() {
+    const [inputs, setInputs] = useState(Array(17).fill(""));
+    const [weights, setWeights] = useState(Array(5).fill(false));
+    const [output, setOutput] = useState("");
+    const [copied, setCopied] = useState(false);
+    const [stats, setStats] = useState({ speed: '', stamina: '', power: '', guts: '', wit: '' });
 
-  const handleChange = (index, value) => {
-    const updated = [...inputs];
-    updated[index] = value;
-    setInputs(updated);
-  };
+    const handleChange = (index, value) => {
+      const updated = [...inputs];
+      updated[index] = value;
+      setInputs(updated);
+    };
 
-  const handleStatChange = (key, value) => {
-    setStats(prev => ({ ...prev, [key]: value }));
-  };
+    const handleStatChange = (key, value) => {
+      setStats(prev => ({ ...prev, [key]: value }));
+    };
 
-  const handleWeightToggle = (index) => {
-    const updated = [...weights];
-    updated[index] = !updated[index];
-    setWeights(updated);
-  };
+    const handleWeightToggle = (index) => {
+      const updated = [...weights];
+      updated[index] = !updated[index];
+      setWeights(updated);
+    };
 
-  const generateOutput = () => {
-    const [s1, s2, s3, st1, st2, st3, p1, p2, p3, g1, g2, g3, g4, w1, w2, w3] = inputs;
-    const tag = (index) => weights[index] ? ' 🔥' : '';
-    const statLine = `${stats.speed} Speed, ${stats.stamina} Stamina, ${stats.power} Power, ${stats.guts} Guts, ${stats.wit} Wit`;
-    const result = `${statLine}
+    const generateOutput = () => {
+      const [s1, s2, s3, st1, st2, st3, p1, p2, p3, g1, g2, g3, g4, w1, w2, w3] = inputs;
+      const tag = (index) => weights[index] ? ' 🔥' : '';
+      const statLine = `${stats.speed} Speed, ${stats.stamina} Stamina, ${stats.power} Power, ${stats.guts} Guts, ${stats.wit} Wit`;
+      const result = `${statLine}
 
 Speed: +${s1} Speed, +${s2} Power, Support: ${s3 || "None"}${tag(0)}
 Stamina: +${st1} Stamina, +${st2} Guts, Support: ${st3 || "None"}${tag(1)}
 Power: +${p1} Power, +${p2}, Support: ${p3 || "None"}${tag(2)}
 Guts: +${g1} Guts, +${g2} Power, +${g3} Speed, Support: ${g4 || "None"}${tag(3)}
 Wit: +${w1} Wit, +${w2} Speed, Support: ${w3 || "None"}${tag(4)}`;
-    setOutput(result);
-    navigator.clipboard.writeText(result).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  };
+      setOutput(result);
+      navigator.clipboard.writeText(result).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+    };
 
-  const inputLayout = [
-    { label: "Speed", fields: [0, 1, 2], names: ["+Speed", "+Power", "Support"] },
-    { label: "Stamina", fields: [3, 4, 5], names: ["+Stamina", "+Guts", "Support"] },
-    { label: "Power", fields: [6, 7, 8], names: ["+Power", "Secondary", "Support"] },
-    { label: "Guts", fields: [9, 10, 11, 12], names: ["+Guts", "+Power", "+Speed", "Support"] },
-    { label: "Wit", fields: [13, 14, 15], names: ["+Wit", "+Speed", "Support"] }
-  ];
+    const inputLayout = [
+      { label: "Speed", fields: [0, 1, 2], names: ["+Speed", "+Power", "Support"] },
+      { label: "Stamina", fields: [3, 4, 5], names: ["+Stamina", "+Guts", "Support"] },
+      { label: "Power", fields: [6, 7, 8], names: ["+Power", "Secondary", "Support"] },
+      { label: "Guts", fields: [9, 10, 11, 12], names: ["+Guts", "+Power", "+Speed", "Support"] },
+      { label: "Wit", fields: [13, 14, 15], names: ["+Wit", "+Speed", "Support"] }
+    ];
 
-  return (
-    <div style={{
-      background: 'linear-gradient(to bottom right, #fcae1e, #f75aa4, #7d5fff)',
-      minHeight: '100vh',
-      padding: '1rem',
-      fontFamily: 'sans-serif'
-    }}>
-      <h2>Training Chart Filler</h2>
+    return React.createElement('div', { className: 'page' }, [
+      React.createElement('h2', null, 'Training Chart Filler'),
 
-      <div style={{ marginBottom: '1rem' }}>
-        <strong>Current Stats</strong>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.5rem', marginTop: '0.25rem' }}>
-          {Object.entries(stats).map(([key, value]) => (
-            <div key={key} style={{ display: 'flex', flexDirection: 'column' }}>
-              <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem' }}>{key.charAt(0).toUpperCase() + key.slice(1)}</label>
-              <input
-                value={value}
-                onChange={(e) => handleStatChange(key, e.target.value)}
-                placeholder="0"
-                style={{ padding: '0.5rem', fontSize: '1rem' }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      React.createElement('div', { className: 'stat-section' }, [
+        React.createElement('strong', null, 'Current Stats'),
+        React.createElement('div', { className: 'section-grid' },
+          Object.entries(stats).map(([key, value]) =>
+            React.createElement('div', { key, className: 'form-column' }, [
+              React.createElement('label', { className: 'form-label' }, key.charAt(0).toUpperCase() + key.slice(1)),
+              React.createElement('input', {
+                className: 'form-input',
+                value: value,
+                placeholder: '0',
+                onChange: (e) => handleStatChange(key, e.target.value)
+              })
+            ])
+          )
+        )
+      ]),
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        {inputLayout.map((section, rowIndex) => (
-          <div key={rowIndex}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <strong>{section.label}</strong>
-              <label style={{ fontSize: '0.9rem', cursor: 'pointer' }}>
-                <input
-                  type="checkbox"
-                  checked={weights[rowIndex]}
-                  onChange={() => handleWeightToggle(rowIndex)}
-                  style={{ marginRight: '0.5rem' }}
-                />
-                Mark as 🔥
-              </label>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: `repeat(${section.fields.length}, 1fr)`, gap: '0.5rem', marginTop: '0.25rem' }}>
-              {section.fields.map((i, idx) => (
-                <div key={i} style={{ display: 'flex', flexDirection: 'column' }}>
-                  <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem' }}>{section.names[idx]}</label>
-                  <input
-                    placeholder={`Value ${i + 1}`}
-                    value={inputs[i]}
-                    onChange={(e) => handleChange(i, e.target.value)}
-                    style={{ padding: '0.5rem', fontSize: '1rem' }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      React.createElement('div', { className: 'section-flex' },
+        inputLayout.map((section, rowIndex) =>
+          React.createElement('div', { key: rowIndex }, [
+            React.createElement('div', { className: 'row-label' }, [
+              React.createElement('strong', null, section.label),
+              React.createElement('label', { className: 'checkbox-label' }, [
+                React.createElement('input', {
+                  type: 'checkbox',
+                  checked: weights[rowIndex],
+                  onChange: () => handleWeightToggle(rowIndex)
+                }),
+                'Mark as 🔥'
+              ])
+            ]),
+            React.createElement('div', {
+              className: section.fields.length === 4 ? 'grid-4' : 'grid-3'
+            }, section.fields.map((i, idx) =>
+              React.createElement('div', { key: i, className: 'form-column' }, [
+                React.createElement('label', { className: 'form-label' }, section.names[idx]),
+                React.createElement('input', {
+                  className: 'form-input',
+                  placeholder: `Value ${i + 1}`,
+                  value: inputs[i],
+                  onChange: (e) => handleChange(i, e.target.value)
+                })
+              ])
+            ))
+          ])
+        )
+      ),
 
-      <button
-        onClick={generateOutput}
-        style={{ marginTop: '1rem', padding: '0.5rem 1rem', fontSize: '1rem', cursor: 'pointer' }}
-      >
-        Generate Chart
-      </button>
+      React.createElement('button', {
+        className: 'button',
+        onClick: generateOutput
+      }, 'Generate Chart'),
 
-      {copied && <p style={{ color: 'green' }}>📋 Copied to clipboard!</p>}
+      copied && React.createElement('p', { className: 'copied-msg' }, '📋 Copied to clipboard!'),
 
-      {output && (
-        <pre style={{ marginTop: '1rem', background: '#f0f0f0', padding: '1rem', whiteSpace: 'pre-wrap' }}>
-          {output}
-        </pre>
-      )}
-    </div>
+      output && React.createElement('pre', { className: 'output' }, output)
+    ]);
+  }
+
+  ReactDOM.render(
+    React.createElement(TrainingChartFiller),
+    document.getElementById('root')
   );
-}
+</script>
