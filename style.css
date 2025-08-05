@@ -1,6 +1,7 @@
 body {
   height: 100vh;
   margin: 0;
+  color:#FFFFFF;
   font-family: sans-serif;
   background: linear-gradient(45deg, #fcae1e, #f75aa4, #7d5fff);
   background-size: 400% 400%;
