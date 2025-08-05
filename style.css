@@ -1,8 +1,16 @@
-  .page {
+body{
     background: linear-gradient(to bottom right, #fcae1e, #f75aa4, #7d5fff);
-    min-height: 100vh;
-    padding: 1rem;
     font-family: sans-serif;
+    height: 100vh;
+}
+
+.page {
+  max-width: 800px;
+  min-width: 400px;
+  width:50vw;
+  margin: 0 auto;
+    height:auto;
+    padding: 1rem;
   }
 
   .stat-section {
